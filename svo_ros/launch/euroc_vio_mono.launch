@@ -1,6 +1,7 @@
 <!-- Launch File for running svo with ceres backend from bag-file -->
 <launch>
   <arg name="calib_file" default="$(find svo_ros)/param/calib/euroc_mono.yaml"/>
+  <arg name="use_rviz" default="true" />
 
   <!-- SVO node -->
   <node pkg="svo_ros" type="svo_node" name="svo" clear_params="true" output="screen" args="--v=0" >
@@ -22,5 +23,5 @@
   </node>
 
   <!-- RVIZ -->
-  <node name="vis" pkg="rviz" type="rviz" args=" -d $(find svo_ros)/rviz_config_vio.rviz" />
+  <node name="vis" pkg="rviz" type="rviz" args=" -d $(find svo_ros)/rviz_config_vio.rviz" if="$(arg use_rviz)" />
 </launch>

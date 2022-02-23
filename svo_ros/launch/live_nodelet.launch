@@ -1,6 +1,7 @@
 <launch>
   <arg name="serial_nr" />
   <arg name="calib_file" default="$(find rpg_calib)/ncamera/bluefox_$(arg serial_nr)_pinhole.yaml"/>
+  <arg name="use_rviz" default="true" />
 
   <node pkg="nodelet" type="nodelet" name="vo_nodelet_manager"  args="manager" output="screen"/>
 
@@ -28,7 +29,7 @@
   </node>
 
   <!-- RVIZ + SVO GUI -->
-  <node name="vis" pkg="rviz" type="rviz" args=" -d $(find svo_ros)/rviz_config.rviz" />
-  <node name="svo_gui" pkg="rqt_gui" type="rqt_gui" args="-s rqt_svo.svo.Svo --args --topic svo" />
+  <node name="vis" pkg="rviz" type="rviz" args=" -d $(find svo_ros)/rviz_config.rviz" if="$(arg use_rviz)" />
+  <node name="svo_gui" pkg="rqt_gui" type="rqt_gui" args="-s rqt_svo.svo.Svo --args --topic svo" if="$(arg use_rviz)" />
 
 </launch>
